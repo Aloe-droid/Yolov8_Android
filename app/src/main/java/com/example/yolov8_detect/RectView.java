@@ -52,13 +52,16 @@ public class RectView extends View {
     public ArrayList<Result> transFormRect(ArrayList<Result> resultArrayList) {
         //핸드폰의 기종에 따라 PreviewView 의 크기는 변한다.
         float scaleX = getWidth() / (float) SupportOnnx.INPUT_SIZE;
-        float scaleY = getHeight() / (float) SupportOnnx.INPUT_SIZE;
+        // float scaleY = getHeight() / (float) SupportOnnx.INPUT_SIZE;
+        float scaleY = scaleX * 9f / 16f;
+        float realY = getWidth() * 9f / 16f;
+        float diffY = realY - getHeight();
 
         for (Result result : resultArrayList) {
             result.getRectF().left *= scaleX;
             result.getRectF().right *= scaleX;
-            result.getRectF().top *= scaleY;
-            result.getRectF().bottom *= scaleY;
+            result.getRectF().top = result.getRectF().top * scaleY - (diffY / 2f);
+            result.getRectF().bottom = result.getRectF().bottom * scaleY - (diffY / 2f);
         }
         return resultArrayList;
     }

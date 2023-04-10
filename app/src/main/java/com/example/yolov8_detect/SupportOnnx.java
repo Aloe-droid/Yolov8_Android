@@ -32,7 +32,7 @@ public class SupportOnnx {
     static final int PIXEL_SIZE = 3;
 
     public float iouThresh = 0.5f;
-    public float objectThresh = 0.3f;
+    public float objectThresh = 0.4f;
     private final Context context;
     private String[] labels;
 

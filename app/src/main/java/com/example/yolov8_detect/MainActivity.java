@@ -1,5 +1,11 @@
 package com.example.yolov8_detect;
 
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.media.Image;
+import android.os.Bundle;
+import android.view.WindowManager;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.AspectRatio;
 import androidx.camera.core.CameraSelector;
@@ -8,12 +14,6 @@ import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
-
-import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.media.Image;
-import android.os.Bundle;
-import android.view.WindowManager;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("UnsafeOptInUsageError")
     public void imageProcessing(ImageProxy imageProxy) {
         Image image = imageProxy.getImage();
-
         if (image != null) {
             // image -> bitmap
             Bitmap bitmap = supportOnnx.imageToBitmap(image);
