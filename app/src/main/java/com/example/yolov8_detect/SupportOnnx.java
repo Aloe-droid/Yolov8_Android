@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class SupportOnnx {
     static final int INPUT_SIZE = 640;
     static final int BATCH_SIZE = 1;
     static final int PIXEL_SIZE = 3;
+    static final int FLOAT_SIZE = 4;
 
     public float iouThresh = 0.5f;
     public float objectThresh = 0.4f;
@@ -116,8 +118,9 @@ public class SupportOnnx {
 
     // bitmap -> float buffer
     public FloatBuffer bitmapToFloatBuffer(Bitmap bitmap) {
-        FloatBuffer buffer = FloatBuffer.allocate(BATCH_SIZE * PIXEL_SIZE * INPUT_SIZE * INPUT_SIZE);
-        buffer.rewind();
+        int cap = BATCH_SIZE * PIXEL_SIZE * INPUT_SIZE * INPUT_SIZE;
+        ByteOrder order = ByteOrder.nativeOrder();
+        FloatBuffer buffer = ByteBuffer.allocate(cap * FLOAT_SIZE).order(order).asFloatBuffer();
 
         int area = INPUT_SIZE * INPUT_SIZE;
         int[] bitmapData = new int[area];
